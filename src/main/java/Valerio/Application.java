@@ -59,10 +59,9 @@ public class Application {
 
 //        ESERCIZIO 2
         Map<Customer, Double> totalSalesByCustomer = orders.stream()
-                .collect(Collectors.groupingBy(Order::getCustomer, Collectors.summingDouble(ordine -> calculateTotalPrice(order))));totalSalesByCustomer.forEach((customer, totalSales) -> {
-            System.out.println("Cliente: " + customer.getName());
-            System.out.println("Importo totale delle vendite: " + totalSales);
-        });
+                .collect(Collectors.groupingBy(Order::getCustomer, Collectors.summingDouble(ordine -> calculateTotalPrice(order))));
+
+
         totalSalesByCustomer.forEach((customer, totalSales) -> {
             System.out.println("Cliente: " + customer.getName());
             System.out.println("Importo totale delle vendite: " + totalSales);
