@@ -47,22 +47,40 @@ public class Application {
         orders.add(order1);
         orders.add(order2);
 
-        // ordino la lista con map
-
+//        ESERCIZIO 1
         Map<String, List<Order>> ordersByCustomer = orders.stream().collect(Collectors.groupingBy(Order -> Order.getCustomer().getName()));
-
-
         ordersByCustomer.forEach((customer , ordersList) -> {
             System.out.println("Customer: " + customer + " - " + "Orders: " + orders.size());
            ordersList.forEach(ordine ->{
               System.out.println("Order: " + ordine.getProducts());
            });
-
-
         });
 
-        }
+
+//        ESERCIZIO 2
+        Map<Customer, Double> totalSalesByCustomer = orders.stream()
+                .collect(Collectors.groupingBy(Order::getCustomer, Collectors.summingDouble(ordine -> calculateTotalPrice(order))));totalSalesByCustomer.forEach((customer, totalSales) -> {
+            System.out.println("Cliente: " + customer.getName());
+            System.out.println("Importo totale delle vendite: " + totalSales);
+        });
+        totalSalesByCustomer.forEach((customer, totalSales) -> {
+            System.out.println("Cliente: " + customer.getName());
+            System.out.println("Importo totale delle vendite: " + totalSales);
+        });
+
+
+
+//
     }
+    private static double calculateTotalPrice(Order order) {
+        return order.getProducts().stream()
+                .mapToDouble(Product::getPrice)
+                .sum();
+    }
+
+        }
+
+
 
 
 
